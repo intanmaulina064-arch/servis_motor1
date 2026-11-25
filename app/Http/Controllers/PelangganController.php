@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class PelangganController extends Controller
 {
+    // Menampilkan semua data pelanggan
     public function index()
     {
         $pelanggan = Pelanggan::latest()->get();
@@ -14,15 +15,17 @@ class PelangganController extends Controller
         return view('pelanggan.index', compact('pelanggan'));
     }
 
+    // Menampilkan form tambah pelanggan
     public function create()
     {
         return view('pelanggan.create');
     }
 
+    // Menyimpan data pelanggan
     public function store(Request $request)
     {
         $request->validate([
-            'id_pelanggan' => 'required|string|max:20|unique:pelanggan',
+            'id_pelanggan' => 'required|string|max:20|unique:pelanggan,id_pelanggan',
             'nama_lengkap' => 'required|string|max:100',
             'no_hp' => 'required|string|max:20',
             'alamat_pelanggan' => 'required|string',
@@ -35,14 +38,16 @@ class PelangganController extends Controller
             ->with('success', 'Data pelanggan berhasil ditambahkan.');
     }
 
-    public function edit(string $id)
+    // Menampilkan form edit
+    public function edit($id)
     {
         $pelanggan = Pelanggan::findOrFail($id);
 
         return view('pelanggan.edit', compact('pelanggan'));
     }
 
-    public function update(Request $request, string $id)
+    // Memperbarui data pelanggan
+    public function update(Request $request, $id)
     {
         $pelanggan = Pelanggan::findOrFail($id);
 
@@ -59,7 +64,8 @@ class PelangganController extends Controller
             ->with('success', 'Data pelanggan berhasil diperbarui.');
     }
 
-    public function destroy(string $id)
+    // Menghapus data pelanggan
+    public function destroy($id)
     {
         $pelanggan = Pelanggan::findOrFail($id);
 

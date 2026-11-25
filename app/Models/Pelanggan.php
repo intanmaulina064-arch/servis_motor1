@@ -7,8 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Pelanggan extends Model
 {
     protected $table = 'pelanggan';
+
     protected $primaryKey = 'id_pelanggan';
+
     public $incrementing = false;
+
     protected $keyType = 'string';
 
     protected $fillable = [
@@ -18,22 +21,4 @@ class Pelanggan extends Model
         'alamat_pelanggan',
         'pekerjaan'
     ];
-
-    public function kendaraan()
-    {
-        return $this->hasMany(
-            Kendaraan::class,
-            'id_pelanggan',
-            'id_pelanggan'
-        );
-    }
-
-    public function daftarService()
-    {
-        return $this->hasMany(
-            DaftarService::class,
-            'id_pelanggan',
-            'id_pelanggan'
-        );
-    }
 }
